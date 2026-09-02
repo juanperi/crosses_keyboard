@@ -76,27 +76,49 @@
       @page { size: landscape; margin: 8mm; }
       :root { --bg: #fff; --panel: #fff; --key: #fff; --key-border: #555; --text: #111; --muted: #444; --accent: #075c4b; --accent-2: #173c8c; --warning: #7a4d00; }
       body { background: #fff; color: #111; font-size: 8px; }
-      main { max-width: none; width: 100%; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px 6px; }
+      main { max-width: none; padding: 0; display: block; }
       h1 { font-size: 18px; margin-bottom: 2px; }
       .intro, .tabs { grid-column: 1 / -1; }
       .intro { max-width: none; margin-bottom: 1px; }
       .intro p, .notice { font-size: 8px; margin: 2px 0; padding: 3px 5px; }
       .tabs, .legend, .notes { display: none; }
-      .layer { display: block !important; break-inside: avoid; page-break-inside: avoid; margin: 0; min-width: 0; }
+      .layer { display: block !important; break-inside: avoid; page-break-inside: avoid; margin: 0 0 7px; min-width: 0; }
+      #sym { page-break-before: always; }
       .panel { border: 0; border-radius: 0; box-shadow: none; padding: 0; }
       .layer-head { display: flex; margin: 1px 0; }
       .layer-head h2 { font-size: 8px; }
       .layer-head span { font-size: 5px; }
-      .keyboard { overflow: visible; padding: 0; }
+      .keyboard { overflow: visible; width: 100%; padding: 0; }
       .row, .thumbs { min-width: 0; gap: 1px; margin-bottom: 1px; }
-      .key { min-width: 0; min-height: 17px; padding: 1px; border-radius: 2px; box-shadow: none; overflow: hidden; }
-      .key strong { font-size: 6px; }
-      .key small { font-size: 4px; margin-top: 0; white-space: nowrap; }
-      .key.dual strong, .key.dual small { font-size: 4px; }
-      .key.dual strong b, .key.dual small b { font-size: 5px; }
+      .key { min-height: 28px; padding: 2px; border-radius: 3px; box-shadow: none; }
+      .key strong { font-size: 9px; }
+      .key small { font-size: 6px; margin-top: 1px; }
+      .key.dual strong, .key.dual small { font-size: 6px; }
+      .key.dual strong b, .key.dual small b { font-size: 8px; }
       .key.dual.mod { background: #e4ead0; border-color: #718237; }
-      .thumb .key { min-height: 15px; }
+      .thumb .key { min-height: 25px; }
       .layer .notice { display: none; }
+    }
+    @media print and (orientation: portrait) {
+      @page { size: portrait; margin: 10mm; }
+      body { font-size: 9px; }
+      main { display: block; }
+      .intro { margin-bottom: 8px; }
+      .intro p, .notice { font-size: 9px; }
+      .layer { margin-bottom: 10px; }
+      .layer-head { margin: 2px 0 3px; }
+      .layer-head h2 { font-size: 11px; }
+      .layer-head span { font-size: 7px; }
+      .keyboard { width: 100%; }
+      .row, .thumbs { min-width: 0; gap: 2px; margin-bottom: 2px; }
+      .key { min-width: 0; min-height: 25px; padding: 2px 1px; }
+      .key strong { font-size: 8px; }
+      .key small { font-size: 5px; }
+      .key.dual strong, .key.dual small { font-size: 5px; }
+      .key.dual strong b, .key.dual small b { font-size: 7px; }
+      .thumb .key { min-height: 23px; }
+      #sym { page-break-before: auto; }
+      #fun { page-break-before: auto; }
     }
   </style>
 </head>
