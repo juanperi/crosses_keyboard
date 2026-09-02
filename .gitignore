@@ -1,0 +1,14 @@
+build/
+*.uf2
+*.hex
+*.bin
+*.elf
+*.map
+
+# Local ZMK checkout and firmware build output.
+.zmk-workspace/
+build-local/
+.zmk-crosses-reference/
+.crosses-v1.3-reference/
+.crosses-42-template/
+.gggw-zmk-keebs-reference/
