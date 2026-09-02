@@ -76,22 +76,22 @@
       @page { size: landscape; margin: 8mm; }
       :root { --bg: #fff; --panel: #fff; --key: #fff; --key-border: #555; --text: #111; --muted: #444; --accent: #075c4b; --accent-2: #173c8c; --warning: #7a4d00; }
       body { background: #fff; color: #111; font-size: 8px; }
-      main { max-width: none; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3px 10px; }
+      main { max-width: none; width: 100%; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px 6px; }
       h1 { font-size: 18px; margin-bottom: 2px; }
       .intro, .tabs { grid-column: 1 / -1; }
       .intro { max-width: none; margin-bottom: 1px; }
       .intro p, .notice { font-size: 8px; margin: 2px 0; padding: 3px 5px; }
       .tabs, .legend, .notes { display: none; }
-      .layer { display: block !important; break-inside: avoid; margin: 0; min-width: 0; }
+      .layer { display: block !important; break-inside: avoid; page-break-inside: avoid; margin: 0; min-width: 0; }
       .panel { border: 0; border-radius: 0; box-shadow: none; padding: 0; }
       .layer-head { display: flex; margin: 1px 0; }
       .layer-head h2 { font-size: 8px; }
       .layer-head span { font-size: 5px; }
       .keyboard { overflow: visible; padding: 0; }
       .row, .thumbs { min-width: 0; gap: 1px; margin-bottom: 1px; }
-      .key { min-height: 17px; padding: 1px; border-radius: 2px; box-shadow: none; }
+      .key { min-width: 0; min-height: 17px; padding: 1px; border-radius: 2px; box-shadow: none; overflow: hidden; }
       .key strong { font-size: 6px; }
-      .key small { font-size: 4px; margin-top: 0; }
+      .key small { font-size: 4px; margin-top: 0; white-space: nowrap; }
       .key.dual strong, .key.dual small { font-size: 4px; }
       .key.dual strong b, .key.dual small b { font-size: 5px; }
       .key.dual.mod { background: #e4ead0; border-color: #718237; }
@@ -127,8 +127,8 @@
   <div class="notes">
     <div class="note"><b>Base access</b><p>Home-row mods: A/Ctrl, S/Option, D/Shift, F/Command; mirrored on J/Command, K/Shift, L/Option, and semicolon/Ctrl.</p></div>
     <div class="note"><b>Layer philosophy</b><p>Nav + Win is one left-thumb layer for arrows, document movement, and UHK window controls. Num combines numbers with trackball clicks. Sym remains separate. Bluetooth and recovery controls live on Sys.</p></div>
-    <div class="note"><b>UHK migration</b><p>Nav + Win preserves the UHK actions on QWERTY positions: W/R tabs, E Mission Control, S/F spaces (<code>Ctrl+Option+Left/Right</code>), D Alt+Tab, and X/V Slack conversations. Command remains on the <code>F</code> home-row hold. Screenshot is provisionally on the top-right key.</p></div>
-    <div class="note"><b>Safety</b><p>Hold the Base Num and Sym/Backspace thumbs together to access Sys. Bootloader and reset are on the left home row and should not be pressed casually. Studio unlock is on Sys top-right.</p></div>
+    <div class="note"><b>UHK migration</b><p>Nav + Win preserves the UHK actions on QWERTY positions: W/R tabs, E Mission Control, S/F spaces (<code>Ctrl+Option+Left/Right</code>), D Alt+Tab, and X/V Slack conversations. Command remains on the <code>F</code> home-row hold. Screenshot uses <code>Cmd+Ctrl+Shift+4</code> to copy a selected region to the clipboard.</p></div>
+    <div class="note"><b>Safety</b><p>Hold the Base Num and Sym/Backspace thumbs together to access Sys. Bootloader is available on both sides in the second row: left outer key for the left half, right outer key for the right half.</p></div>
   </div>
 </main>
 <script>
@@ -143,19 +143,19 @@
     },
     nav: {
       title: 'Nav + Win', subtitle: 'Left-thumb layer: arrows, editing, and UHK window controls',
-      keys: [['','',1],['','',1],['Tabs left','proposal',1],['Mission Ctrl','proposal',1],['Tabs right','proposal',1],['','',1],['PgUp','',0],['Home','',0],['Up','',0],['End','',0],['PgDn','',0],['Screenshot','proposal',0],['','',1],['','',1],['Spaces left','proposal',1],['Alt+Tab','proposal',1],['Spaces right','proposal',1],['','',1],['Left','',0],['Down','',0],['Up','',0],['Right','',0],['Del','',0],['','',0],['','',1],['Undo','',1],['Slack prev','proposal',1],['','',1],['Slack next','proposal',1],['Redo','',1],['Ins','',0],['Tab','',0],['PgDn','',0],['PgUp','',0],['End','',0],['','',0]], thumbs: [['',''],['',''],['',''],['',''],['',''],['Fun','hold']] },
+      keys: [['','',1],['','',1],['Tabs left','proposal',1],['Mission Ctrl','proposal',1],['Tabs right','proposal',1],['','',1],['PgUp','',0],['Home','',0],['Up','',0],['End','',0],['PgDn','',0],['Screenshot → clip','proposal',0],['','',1],['','',1],['Spaces left','proposal',1],['Alt+Tab','proposal',1],['Spaces right','proposal',1],['','',1],['Left','',0],['Down','',0],['Up','',0],['Right','',0],['Del','',0],['','',0],['','',1],['Undo','',1],['Slack prev','proposal',1],['','',1],['Slack next','proposal',1],['Redo','',1],['Ins','',0],['Tab','',0],['PgDn','',0],['PgUp','',0],['End','',0],['','',0]], thumbs: [['',''],['',''],['',''],['',''],['',''],['Fun','hold']] },
     num: {
       title: 'Num + Mouse', subtitle: 'Numpad cluster + arithmetic + left-hand trackball clicks',
-      keys: [['','',1],['','',1],['LClick','proposal',1],['MClick','proposal',1],['RClick','proposal',1],['','',1],['+','',0],['7','',0],['8','',0],['9','',0],['-','',0],['','',0],['','',1],['','',1],['','',1],['','',1],['','',1],['','',1],['*','',0],['4','',0],['5','',0],['6','',0],['/','',0],['','',0],['','',1],['','',1],['','',1],['','',1],['','',1],['','',1],[',','',0],['1','',0],['2','',0],['3','',0],['.','',0],['=','',0]], thumbs: [['',''],['',''],['0','tap'],['',''],['',''],['','']] },
+      keys: [['','',1],['','',1],['','',1],['','',1],['','',1],['','',1],['+','',0],['7','',0],['8','',0],['9','',0],['-','',0],['','',0],['RClick','proposal',1],['MClick','proposal',1],['LClick','proposal',1],['','',1],['','',1],['','',1],['*','',0],['4','',0],['5','',0],['6','',0],['/','',0],['','',0],['','',1],['','',1],['','',1],['','',1],['','',1],['','',1],[',','',0],['1','',0],['2','',0],['3','',0],['.','',0],['=','',0]], thumbs: [['',''],['',''],['0','tap'],['',''],['',''],['','']] },
     sym: {
-      title: 'Sym', subtitle: 'Programming punctuation and paired delimiters',
-      keys: [['!','',1],['@','',1],['#','',1],['$','',1],['%','',1],['^','',1],['&','',0],['*','',0],['(','',0],[')','',0],['`','',0],['','',0],['-','',1],['=','',1],['[','',1],[']','',1],['\\','',1],['','',1],['`','',0],['~','',0],['<','',0],['>','',0],['|','',0],['','',0],['_','',1],['+','',1],['{','',1],['}','',1],['|','',1],['~','',1],['','',0],['','',0],['','',0],['','',0],['','',0],['','',0]], thumbs: [['',''],['',''],['',''],['',''],['',''],['','']] },
+      title: 'Sym', subtitle: 'ISO/QWERTY relationships: shifted numbers and paired punctuation',
+      keys: [['','',1],['!','',1],['@','',1],['#','',1],['$','',1],['%','',1],['^','',0],['&','',0],['*','',0],['(','',0],[')','',0],['','',0],['','',1],['','',1],['','',1],['','',1],['','',1],['','',1],['-','',0],['=','',0],['[','',0],[']','',0],['\\','',0],['`','',0],['','',1],['','',1],['','',1],['','',1],['','',1],['','',1],[':','',0],['"','',0],['<','',0],['>','',0],['?','',0],['','',0]], thumbs: [['',''],['',''],['',''],['',''],['',''],['','']] },
     fun: {
       title: 'Fun', subtitle: 'Function keys, media, and macOS controls',
       keys: [['Mute','proposal',1],['Vol -','proposal',1],['Vol +','proposal',1],['Prev','proposal',1],['Play','proposal',1],['Next','proposal',1],['F7','proposal',0],['F8','proposal',0],['F9','proposal',0],['F10','proposal',0],['F11','proposal',0],['F12','proposal',0],['','',1],['','',1],['','',1],['','',1],['','',1],['','',1],['F4','proposal',0],['F5','proposal',0],['F6','proposal',0],['','',0],['','',0],['','',0],['','',1],['','',1],['','',1],['','',1],['','',1],['','',1],['F1','proposal',0],['F2','proposal',0],['F3','proposal',0],['','',0],['','',0],['','',0]], thumbs: [['',''],['',''],['',''],['',''],['',''],['','']] },
     sys: {
       title: 'Sys', subtitle: 'Hold Base Num + Sym/Backspace thumbs together',
-      keys: [['BT 0','proposal',1],['BT 1','proposal',1],['BT 2','proposal',1],['BT 3','proposal',1],['BT 4','proposal',1],['BT clear','proposal',1],['','',0],['','',0],['','',0],['','',0],['','',0],['Studio','proposal',0],['Bootloader','proposal',1],['Reset','proposal',1],['','',1],['','',1],['','',1],['','',1],['','',0],['','',0],['','',0],['','',0],['','',0],['','',0],['','',1],['','',1],['','',1],['','',1],['','',1],['','',1],['','',0],['','',0],['','',0],['','',0],['','',0],['','',0]], thumbs: [['',''],['',''],['',''],['',''],['',''],['','']], extra: 'Access from Base: hold the left outer Num thumb and the right outer Sym/Backspace thumb together. This activates Sys while both thumbs are held.' }
+      keys: [['BT 0','proposal',1],['BT 1','proposal',1],['BT 2','proposal',1],['BT 3','proposal',1],['BT 4','proposal',1],['BT clear','proposal',1],['','',0],['','',0],['','',0],['','',0],['','',0],['','',0],['Bootloader','proposal',1],['Reset','proposal',1],['','',1],['','',1],['','',1],['','',1],['','',0],['','',0],['','',0],['','',0],['','',0],['Bootloader','proposal',0],['','',1],['','',1],['','',1],['','',1],['','',1],['','',1],['','',0],['','',0],['','',0],['','',0],['','',0],['','',0]], thumbs: [['',''],['',''],['',''],['',''],['',''],['','']], extra: 'Access from Base: hold the left outer Num and right outer Sym/Backspace thumbs together. Then press the second-row outer key on the side you want to flash: left outer for the left controller, right outer for the right controller.' }
   };
   function render(id) {
     const data = rows[id];

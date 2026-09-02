@@ -3,6 +3,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 FIRMWARE_DIR="${ROOT_DIR}/build-local"
+SIDES="right left"
 
 if [[ "$(uname -s)" != "Darwin" ]]; then
     echo "This flashing helper currently supports macOS only." >&2
@@ -10,6 +11,13 @@ if [[ "$(uname -s)" != "Darwin" ]]; then
 fi
 
 command -v diskutil >/dev/null || { echo "diskutil was not found." >&2; exit 1; }
+
+case "${1:-all}" in
+    all) ;;
+    left) SIDES="left" ;;
+    right) SIDES="right" ;;
+    *) echo "Usage: $0 [all|left|right]" >&2; exit 2 ;;
+esac
 
 wait_for_uf2_volume() {
     local volume
@@ -31,6 +39,18 @@ wait_for_uf2_volume() {
     done
 }
 
+wait_for_volume_to_disconnect() {
+    local volume="$1"
+    local attempts=30
+
+    while [[ -d "${volume}" && ${attempts} -gt 0 ]]; do
+        sleep 1
+        attempts=$((attempts - 1))
+    done
+
+    [[ ! -d "${volume}" ]]
+}
+
 flash_one() {
     local side="$1"
     local firmware="${FIRMWARE_DIR}/crosses_42_${side}.uf2"
@@ -47,30 +67,39 @@ flash_one() {
     echo "Detected bootloader volume: ${volume}"
     echo "About to copy: ${firmware}"
     echo "Target: ${volume}"
-    read -r -p "Flash this ${side} half? Type FLASH to continue: " confirmation
-    [[ "${confirmation}" == "FLASH" ]] || {
-        echo "Skipped ${side} half."
-        exit 1
-    }
-
+    # The UF2 bootloader can eject the volume while cp is still unwinding.
+    # Treat that expected disconnect as success even if cp reports an I/O error.
+    set +e
     cp "${firmware}" "${volume}/"
+    local copy_status=$?
     sync
-    echo "Copied ${firmware}. The half should reboot and the volume should disappear."
-    sleep 3
+    set -e
+
+    if wait_for_volume_to_disconnect "${volume}"; then
+        echo "${side} half accepted the firmware and rebooted."
+    elif [[ ${copy_status} -eq 0 ]]; then
+        echo "${side} half was flashed, but the bootloader volume is still mounted." >&2
+        return 1
+    else
+        echo "Copy failed and the bootloader volume is still mounted." >&2
+        return 1
+    fi
 }
 
 echo "Crosses V1 firmware flasher"
 echo "This script only copies UF2 files to bootloader volumes."
 echo "It does not reset the keyboard or use settings_reset.uf2."
 echo
-read -r -p "Flash both normal-clock firmware files? Type FLASH to continue: " confirmation
-[[ "${confirmation}" == "FLASH" ]] || { echo "Aborted."; exit 1; }
-
-echo "The official Crosses procedure flashes the right (primary) half first."
-flash_one right
-flash_one left
+if [[ "${SIDES}" == "right left" ]]; then
+    echo "The official Crosses procedure flashes the right (primary) half first."
+fi
+for side in ${SIDES}; do
+    flash_one "${side}"
+done
 
 echo
-echo "Both halves were flashed."
-echo "Right: ${FIRMWARE_DIR}/crosses_42_right.uf2"
-echo "Left:  ${FIRMWARE_DIR}/crosses_42_left.uf2"
+if [[ "${SIDES}" == "right left" ]]; then
+    echo "Both halves were flashed."
+else
+    echo "${SIDES} half was flashed."
+fi
