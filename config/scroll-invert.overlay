@@ -1,0 +1,8 @@
+&trackball_peripheral_split {
+    input-processors
+        = <&zip_xy_to_scroll_mapper>
+        , <&zip_left_scroll_invert (-1) 1>
+        , <&zip_scroll_scaler 1 8>
+        , <&zip_ble_report_rate_limit>
+        ;
+};

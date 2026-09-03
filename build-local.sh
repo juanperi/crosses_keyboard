@@ -96,6 +96,7 @@ docker run --rm \
             west build -s zmk/app -d "${build_dir}" -b "${BOARD}" -- \
                 -DZMK_CONFIG=/work/config-repo/config \
                 -DSHIELD="${shield}" \
+                -DEXTRA_DTC_OVERLAY_FILE=/work/config-repo/config/scroll-invert.overlay \
                 "$@"
             cp "${build_dir}/zephyr/zmk.uf2" "/work/output/${artifact}.uf2"
         }
