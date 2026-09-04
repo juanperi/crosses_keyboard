@@ -42,7 +42,7 @@
     .panel { background: color-mix(in srgb, var(--panel) 90%, transparent); border: 1px solid #273142; border-radius: 18px; padding: 18px; box-shadow: 0 18px 55px #0004; }
     .layer-head { display: flex; justify-content: space-between; gap: 15px; align-items: baseline; margin-bottom: 15px; }
     .layer-head span { color: var(--accent); font-size: 13px; text-transform: uppercase; letter-spacing: .1em; }
-    .keyboard { overflow-x: auto; padding: 8px 0 14px; }
+    .keyboard { position: relative; min-width: 790px; overflow-x: auto; padding: 8px 0 14px; }
     .row { display: grid; grid-template-columns: repeat(12, minmax(48px, 1fr)); gap: var(--gap); min-width: 790px; margin-bottom: var(--gap); }
     .key { min-height: 58px; padding: 7px 5px; border: 1px solid var(--key-border); border-radius: 9px; background: linear-gradient(145deg, #293346, var(--key)); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; box-shadow: 0 3px 0 #0b0e14; }
     .key strong { font-size: 14px; line-height: 1.1; }
@@ -54,6 +54,11 @@
     .key.dual small { color: var(--accent); font-size: 11px; }
     .key.dual small b { color: var(--text); font-size: 13px; }
     .key.dual.mod { background: linear-gradient(145deg, #3b432d, #293326); border-color: #84934d; }
+    .key.combo-key { background: linear-gradient(145deg, #344d5b, #263744); border-color: var(--accent-2); box-shadow: 0 3px 0 #0b0e14, 0 0 14px #9fb8ff55; }
+    .combo-enter { position: absolute; z-index: 2; top: 69px; left: 66.667%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; color: var(--accent-2); pointer-events: none; }
+    .combo-enter span { position: relative; min-width: 58px; padding: 5px 8px; border: 1px solid var(--accent-2); border-radius: 6px; background: linear-gradient(145deg, #3c5d78, #263c53); box-shadow: 0 3px 0 #0b0e14, 0 0 14px #9fb8ff55; font-size: 12px; font-weight: 700; line-height: 1.1; letter-spacing: .04em; text-align: center; white-space: nowrap; }
+    .combo-enter span { min-width: 58px; }
+    .combo-enter i { display: none; }
     .left, .right { border-color: #536680; }
     .thumbs { display: grid; grid-template-columns: repeat(12, minmax(48px, 1fr)); gap: var(--gap); min-width: 790px; padding: 4px 0 0; }
     .thumb { grid-column: span 2; }
@@ -88,7 +93,7 @@
       .layer-head { display: flex; margin: 1px 0; }
       .layer-head h2 { font-size: 8px; }
       .layer-head span { font-size: 5px; }
-      .keyboard { overflow: visible; width: 100%; padding: 0; }
+       .keyboard { min-width: 0; overflow: visible; width: 100%; padding: 0; }
       .row, .thumbs { min-width: 0; gap: 1px; margin-bottom: 1px; }
       .key { min-height: 28px; padding: 2px; border-radius: 3px; box-shadow: none; }
       .key strong { font-size: 9px; }
@@ -126,7 +131,7 @@
 <main>
   <section class="intro">
     <h1>Crosses V1 / 42-key proposal</h1>
-    <p>Interactive review mockup for the adapted macOS layout. Select a layer to inspect its proposed bindings. Use the browser print command for a one-page reference. This is documentation only; <code>config/crosses.keymap</code> is unchanged.</p>
+    <p>Interactive review mockup for the adapted macOS layout. Select a layer to inspect its proposed bindings. Use the browser print command for a one-page reference. This is documentation only; <code>config/crosses.keymap</code> is the firmware source of truth.</p>
     <div class="notice"><b>Review markers:</b> amber labels are unresolved proposals. The <code>Win</code> layer preserves the UHK letter positions, but its exact macOS actions still need to be confirmed from the UHK behavior.</div>
   </section>
 
@@ -148,7 +153,7 @@
 
   <div class="notes">
     <div class="note"><b>Base access</b><p>Home-row mods: A/Ctrl, S/Option, D/Shift, F/Command; mirrored on J/Command, K/Shift, L/Option, and semicolon/Ctrl.</p></div>
-    <div class="note"><b>Layer philosophy</b><p>Nav + Win is one left-thumb layer for arrows, document movement, and UHK window controls. Num combines numbers with trackball clicks. Sym remains separate. Bluetooth and recovery controls live on Sys.</p></div>
+    <div class="note"><b>Layer philosophy</b><p>Nav + Win is one left-thumb layer for arrows, document movement, and UHK window controls. Num combines numbers with trackball clicks. Sym remains separate. Bluetooth and recovery controls live on Sys. Base <code>J+K</code> is a trial Enter combo.</p></div>
     <div class="note"><b>UHK migration</b><p>Nav + Win preserves the UHK actions on QWERTY positions: W/R tabs, E Mission Control, S/F spaces (<code>Ctrl+Option+Left/Right</code>), D <code>Cmd+Tab</code>, and X/V Slack conversations. Screenshot uses <code>Cmd+Ctrl+Shift+4</code> to copy a selected region to the clipboard.</p></div>
     <div class="note"><b>Safety</b><p>Hold the Base Num and Sym/Backspace thumbs together to access Sys. Bootloader is available on both sides in the second row: left outer key for the left half, right outer key for the right half.</p></div>
   </div>
@@ -158,10 +163,11 @@
     base: {
       title: 'Base', subtitle: 'QWERTY + Mac home-row mods',
       keys: [
-        ['Tab','',1],['Q','',1],['W','',1],['E','',1],['R','',1],['T','',1],['Y','',0],['U','',0],['I','',0],['O','',0],['P','',0],['Bspc','',0],
-        ['Ctrl','',1],['A','Ctrl',1],['S','Opt',1],['D','Shift',1],['F','Cmd',1],['G','',1],['H','',0],['J','Cmd',0],['K','Shift',0],['L','Opt',0],[';','Ctrl',0],["'",'',0],
-        ['Shift','',1],['Z','',1],['X','',1],['C','',1],['V','',1],['B','',1],['N','',0],['M','',0],[',','',0],['.','',0],['/','',0],['Esc','',0]
-      ], thumbs: [['Num','hold'],['Nav + Win','hold'],['Cmd',''],['Enter',''],['Space',''],['Backspace','Sym']]
+        ['Esc','',1],['Q','',1],['W','',1],['E','',1],['R','',1],['T','',1],['Y','',0],['U','',0],['I','',0],['O','',0],['P','',0],['Bspc','',0],
+        ['Tab','',1],['A','Ctrl',1],['S','Opt',1],['D','Shift',1],['F','Cmd',1],['G','',1],['H','',0],['J','Cmd',0],['K','Shift',0],['L','Opt',0],[';','Ctrl',0],["'",'',0],
+        ['','',1],['Z','',1],['X','',1],['C','',1],['V','',1],['B','',1],['N','',0],['M','',0],[',','',0],['.','',0],['/','',0],['','',0]
+       ], thumbs: [['Num','hold'],['Nav + Win','hold'],['Cmd',''],['Enter',''],['Space',''],['Backspace','Sym']], combo: true,
+      extra: 'Enter combo: tap J and K together on Base to send <code>Enter</code>. Hold both together for <code>Command + Shift</code>. Tapping J or K individually sends its normal letter; holding J gives Command and holding K gives Shift.'
     },
     nav: {
       title: 'Nav + Win', subtitle: 'Left-thumb layer: arrows, window controls, and trackball clicks',
@@ -182,12 +188,13 @@
   function render(id) {
     const data = rows[id];
     const section = document.getElementById(id);
-    const key = ([label, sub, left]) => {
+     const key = ([label, sub, left], index) => {
       const dual = label && sub && sub !== 'proposal';
       const content = dual
         ? `<strong>Tap: <b>${label}</b></strong><small>Hold: <b>${sub}</b></small>`
         : `<strong>${label || '&nbsp;'}</strong><small>${sub === 'proposal' ? 'review' : (sub || '&nbsp;')}</small>`;
-      return `<div class="key ${left ? 'left' : 'right'} ${sub === 'proposal' ? 'proposal' : ''} ${dual ? 'dual mod' : ''}">${content}</div>`;
+       const comboKey = data.combo && (index === 19 || index === 20) ? 'combo-key' : '';
+       return `<div class="key ${left ? 'left' : 'right'} ${sub === 'proposal' ? 'proposal' : ''} ${dual ? 'dual mod' : ''} ${comboKey}">${content}</div>`;
     };
     const thumb = ([label, hold]) => {
       const holdOnly = hold === 'hold';
@@ -199,7 +206,7 @@
         : `<strong>${label || '&nbsp;'}</strong><small>${hold || '&nbsp;'}</small>`;
       return `<div class="thumb"><div class="key ${holdOnly || dual ? 'dual' : ''}">${content}</div></div>`;
     };
-    section.innerHTML = `<div class="panel"><div class="layer-head"><h2>${data.title}</h2><span>${data.subtitle}</span></div><div class="keyboard"><div class="row">${data.keys.slice(0,12).map(key).join('')}</div><div class="row">${data.keys.slice(12,24).map(key).join('')}</div><div class="row">${data.keys.slice(24,36).map(key).join('')}</div><div class="thumbs">${data.thumbs.map(thumb).join('')}</div></div><div class="legend"><span><i class="swatch"></i>key position</span><span><i class="swatch mod"></i>thumb/layer access</span><span><i class="swatch home-mod"></i>home-row modifier</span><span><i class="swatch proposal"></i>proposed or unresolved</span></div>${data.extra ? `<div class="notice">${data.extra}</div>` : ''}</div>`;
+     section.innerHTML = `<div class="panel"><div class="layer-head"><h2>${data.title}</h2><span>${data.subtitle}</span></div><div class="keyboard"><div class="row">${data.keys.slice(0,12).map((item, index) => key(item, index)).join('')}</div><div class="row">${data.keys.slice(12,24).map((item, index) => key(item, index + 12)).join('')}</div><div class="row">${data.keys.slice(24,36).map((item, index) => key(item, index + 24)).join('')}</div><div class="thumbs">${data.thumbs.map(thumb).join('')}</div>${data.combo ? '<div class="combo-enter" aria-label="Enter combo"><span>Enter</span></div>' : ''}</div><div class="legend"><span><i class="swatch"></i>key position</span><span><i class="swatch mod"></i>thumb/layer access</span><span><i class="swatch home-mod"></i>home-row modifier</span><span><i class="swatch proposal"></i>proposed or unresolved</span></div>${data.extra ? `<div class="notice">${data.extra}</div>` : ''}</div>`;
   }
   Object.keys(rows).filter(id => document.getElementById(id)).forEach(render);
   document.querySelectorAll('button').forEach(button => button.addEventListener('click', () => {
