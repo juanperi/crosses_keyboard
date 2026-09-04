@@ -1,0 +1,1 @@
+target_sources(app PRIVATE input_processor_scroll_detent.c)

@@ -1,0 +1,14 @@
+description: Input Processor for fixed-step vertical wheel scrolling
+compatible: "zmk,input-processor-scroll-detent"
+include: ip_common.yaml
+
+properties:
+  type:
+    type: int
+  codes:
+    type: array
+    required: true
+  threshold:
+    type: int
+    required: true
+    description: Accumulated wheel units required to emit one wheel unit

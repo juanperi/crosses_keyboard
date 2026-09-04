@@ -95,6 +95,7 @@ docker run --rm \
             rm -rf "${build_dir}"
             west build -s zmk/app -d "${build_dir}" -b "${BOARD}" -- \
                 -DZMK_CONFIG=/work/config-repo/config \
+                -DZMK_EXTRA_MODULES=/work/config-repo/crosses-detent \
                 -DSHIELD="${shield}" \
                 -DEXTRA_DTC_OVERLAY_FILE=/work/config-repo/config/scroll-invert.overlay \
                 "$@"
