@@ -60,6 +60,7 @@
     .combo-enter.tab { top: 69px; left: 25%; }
     .combo-enter.enter { top: 69px; left: 33.333%; }
     .combo-enter.enter-jk { top: 69px; left: 66.667%; }
+    .combo-enter.parentheses { top: 4px; left: 50%; }
     .combo-enter span { position: relative; min-width: 58px; padding: 5px 8px; border: 1px solid var(--accent-2); border-radius: 6px; background: linear-gradient(145deg, #3c5d78, #263c53); box-shadow: 0 3px 0 #0b0e14, 0 0 14px #9fb8ff55; font-size: 12px; font-weight: 700; line-height: 1.1; letter-spacing: .04em; text-align: center; white-space: nowrap; }
     .combo-enter span { min-width: 58px; }
     .combo-enter i { display: none; }
@@ -170,8 +171,8 @@
         ['Esc','',1],['Q','',1],['W','',1],['E','',1],['R','',1],['T','',1],['Y','',0],['U','',0],['I','',0],['O','',0],['P','',0],['Bspc','',0],
         ['Tab','',1],['A','Ctrl',1],['S','Opt',1],['D','Shift',1],['F','Cmd',1],['G','',1],['H','',0],['J','Cmd',0],['K','Shift',0],['L','Opt',0],[';','Ctrl',0],["'",'',0],
         ['','',1],['Z','',1],['X','',1],['C','',1],['V','',1],['B','',1],['N','',0],['M','',0],[',','',0],['.','',0],['/','',0],['','',0]
-       ], thumbs: [['Num','hold'],['Nav + Win','hold'],['Cmd',''],['',''],['Space',''],['Backspace','Sym']], comboPositions: [3, 4, 14, 15, 16, 19, 20], combos: [['escape', 'Esc'], ['tab', 'Tab'], ['enter', 'Enter'], ['enter-jk', 'Enter']],
-      extra: 'Base combos: tap E+R for <code>Esc</code>, S+D for <code>Tab</code>, or F+D and J+K for <code>Enter</code>. Hold either Enter combo for <code>Command + Shift</code>. Tapping or holding an individual home-row key keeps its normal letter/modifier behavior.'
+       ], thumbs: [['Num','hold'],['Nav + Win','hold'],['Cmd',''],['',''],['Space',''],['Backspace','Sym']], comboPositions: [3, 4, 5, 6, 14, 15, 16, 19, 20], combos: [['escape', 'Esc'], ['parentheses', '()'], ['tab', 'Tab'], ['enter', 'Enter'], ['enter-jk', 'Enter']],
+       extra: 'Base combos: tap E+R for <code>Esc</code>, T+Y for <code>()</code> with the cursor between them, S+D for <code>Tab</code>, or F+D and J+K for <code>Enter</code>. Hold either Enter combo for <code>Command + Shift</code>. Tapping or holding an individual home-row key keeps its normal letter/modifier behavior.'
     },
     nav: {
       title: 'Nav + Win', subtitle: 'Left-thumb layer: arrows, window controls, and trackball clicks',

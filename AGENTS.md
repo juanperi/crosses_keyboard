@@ -119,13 +119,14 @@ On macOS this copies a selected screenshot region to the clipboard rather than s
 
 ## Visual Documentation
 
-`docs/proposed-layout.html` is an interactive visual reference. It is not the firmware source of truth.
+`docs/proposed-layout.html` is an interactive visual reference, while `config/crosses.keymap` is the firmware source of truth. Keep them aligned: any change to layers, key bindings, combos, macros, behaviors, timing, thumb actions, or documented key positions must update both files in the same change. Do not leave the HTML describing stale firmware behavior.
 
 - Select a layer tab to show one layer.
 - Click the selected tab again to show all layers.
 - Print CSS supports landscape and portrait output.
 - The current visual layer list is Base, Num, Sym, Nav + Win, Fun, and Sys.
 - The HTML includes the current thumb layout, Enter combo, Sys access, click locations, and screenshot behavior.
+- The Base `T+Y` combo types `()` and moves the cursor between the parentheses; its marker and explanation must remain synchronized with the keymap.
 
 ## Sys Access
 

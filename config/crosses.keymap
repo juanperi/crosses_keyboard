@@ -54,6 +54,13 @@
             layers = <BASE>;
             bindings = <&kp TAB>;
         };
+        parentheses_combo {
+            timeout-ms = <35>;
+            require-prior-idle-ms = <100>;
+            key-positions = <5 6>;
+            layers = <BASE>;
+            bindings = <&parentheses_macro>;
+        };
     };
 
     behaviors {
@@ -115,6 +122,11 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&macro_press &kp LGUI>, <&macro_press &kp LCTRL>, <&macro_press &kp LSHFT>, <&macro_tap &kp N4>, <&macro_release &kp LSHFT>, <&macro_release &kp LCTRL>, <&macro_release &kp LGUI>;
+        };
+        parentheses_macro: parentheses_macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &kp LPAR>, <&macro_tap &kp RPAR>, <&macro_tap &kp LEFT>;
         };
         hml: homerow_mods_left {
             compatible = "zmk,behavior-hold-tap";
