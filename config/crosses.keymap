@@ -24,13 +24,35 @@
             layers = <BASE>;
             bindings = <&mo SYS>;
         };
+        escape_combo {
+            timeout-ms = <35>;
+            require-prior-idle-ms = <100>;
+            key-positions = <3 4>;
+            layers = <BASE>;
+            bindings = <&kp ESC>;
+        };
         enter_combo {
+            timeout-ms = <35>;
+            require-prior-idle-ms = <100>;
+            key-positions = <15 16>;
+            layers = <BASE>;
+            slow-release;
+            bindings = <&combo_mods &cmd_shift RET>;
+        };
+        enter_combo_jk {
             timeout-ms = <35>;
             require-prior-idle-ms = <100>;
             key-positions = <19 20>;
             layers = <BASE>;
             slow-release;
             bindings = <&combo_mods &cmd_shift RET>;
+        };
+        tab_combo {
+            timeout-ms = <35>;
+            require-prior-idle-ms = <100>;
+            key-positions = <14 15>;
+            layers = <BASE>;
+            bindings = <&kp TAB>;
         };
     };
 
@@ -127,7 +149,7 @@
                 &kp ESC   &kp Q        &kp W        &kp E        &kp R        &kp T        &kp Y        &kp U        &kp I        &kp O        &kp P        &kp BSPC
                 &kp TAB             &hml LCTRL A  &hml LALT S    &hml LSHFT D  &hml LGUI F  &kp G        &kp H        &hmr RGUI J    &hmr RSHFT K   &hmr RALT L   &hmr RCTRL SEMI &kp SQT
                 &trans    &kp Z        &kp X        &kp C        &kp V        &kp B        &kp N        &kp M        &kp COMMA   &kp DOT      &kp FSLH    &trans
-                                       &mo NUM        &mo NAV        &kp LGUI        &kp RET      &kp SPACE      &lt SYM BSPC
+                                       &mo NUM        &mo NAV        &kp LGUI        &trans        &kp SPACE      &lt SYM BSPC
             >;
         };
 
