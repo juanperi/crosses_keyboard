@@ -13,7 +13,7 @@
         compatible = "zmk,input-processor-scroll-detent";
         #input-processor-cells = <0>;
         type = <INPUT_EV_REL>;
-        codes = <INPUT_REL_WHEEL>;
+        codes = <INPUT_REL_WHEEL INPUT_REL_HWHEEL>;
         threshold = <16>;
     };
 };
