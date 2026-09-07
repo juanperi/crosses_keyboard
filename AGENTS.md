@@ -41,7 +41,7 @@ SYS  = 4
 Base thumb layout, from left to right:
 
 ```text
-Hold Num/Sym   Hold Nav + Win       Cmd       Enter       Space       Tap Backspace / Hold Num/Sym
+Hold Num/Sym   Hold Nav + Win       Cmd       Enter       Space       Tap Backspace / Hold Fun
 ```
 
 Base outer columns:
@@ -70,7 +70,8 @@ Home-row mods use the positional/timing-safe pattern from ZMK documentation:
 
 Current layers:
 
-- `Nav + Win`: arrows, Home/End, page movement, editing, UHK window actions, left/right click, screenshot.
+- `Nav + Win`: arrows, `Y=Home`, `U=Page Down`, `I=Page Up`, `O=End`, editing, UHK window actions, left/right click, and screenshot. Screenshot is on the left half's bottom-left key. Duplicate page-navigation bindings were removed from the lower row.
+- On Nav + Win, `M=Tab` and comma is `Delete`.
 - `Num/Sym`: unchanged right-hand number positions with arithmetic and frequently used symbols. `*` and `-` are swapped from the original Num layer; `()` and `[]` exchange their combined-layer positions. The `0` key is in the former comma position on the bottom row.
 - `Fun`: media and F-keys.
 - `Sys`: Bluetooth, Studio unlock, bootloader and reset keys.
@@ -79,12 +80,10 @@ Current layers:
 
 ```text
 W: previous tab             E: Mission Control       R: next tab
-S: previous Space           D: Cmd+Tab               F: next Space
+S: previous Space                                   F: next Space
 X: previous Slack thread    V: next Slack thread
 T: right click              G: left click
 ```
-
-The `D` action is currently a one-shot `Cmd+Tab` macro. Multiple `D` taps while holding Nav do not yet maintain Command. A tri-state/swapper experiment was attempted and reverted because it did not behave correctly. Do not describe it as solved. The current behavior is simply one-shot `Cmd+Tab` per press.
 
 The Base `J+K` combo is the current experiment for Enter:
 
@@ -101,8 +100,10 @@ The combo is positional and uses the official Crosses 42-key layout. It is inten
 The left trackball scroll overlay is in `config/scroll-invert.overlay`:
 
 - Converts left trackball XY to scroll.
+- Configures the left PMW3610 trackball at `200 CPI`.
 - Inverts vertical wheel direction with a scaler of `-1/1`.
-- Reduces scroll intensity with `1/16`.
+- Converts accumulated vertical and horizontal movement into discrete scroll ticks.
+- Requires `2880` accumulated wheel units per tick.
 - Applies BLE report-rate limiting.
 
 The right trackball is supplied by the official Crosses module and is not locally redefined.
@@ -131,7 +132,7 @@ On macOS this copies a selected screenshot region to the clipboard rather than s
 On Base, the Sys combo is:
 
 ```text
-Hold both Base Num/Sym thumbs
+Hold Base Num/Sym + Fun thumbs
 ```
 
 Sys includes:
