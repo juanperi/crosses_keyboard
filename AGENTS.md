@@ -33,16 +33,15 @@ Layer numbering in `config/crosses.keymap`:
 ```text
 BASE = 0
 NAV  = 1
-NUM  = 2
-SYM  = 3
-FUN  = 4
-SYS  = 5
+NUMSYM = 2
+FUN  = 3
+SYS  = 4
 ```
 
 Base thumb layout, from left to right:
 
 ```text
-Hold Num       Hold Nav + Win       Cmd       Enter       Space       Tap Backspace / Hold Sym
+Hold Num/Sym   Hold Nav + Win       Cmd       Enter       Space       Tap Backspace / Hold Num/Sym
 ```
 
 Base outer columns:
@@ -72,8 +71,7 @@ Home-row mods use the positional/timing-safe pattern from ZMK documentation:
 Current layers:
 
 - `Nav + Win`: arrows, Home/End, page movement, editing, UHK window actions, left/right click, screenshot.
-- `Num`: right-hand numpad/arithmetic. The `0` key is in the former comma position on the bottom row.
-- `Sym`: ISO/QWERTY-oriented symbol layer.
+- `Num/Sym`: unchanged right-hand number positions with arithmetic and frequently used symbols. `*` and `-` are swapped from the original Num layer; `()` and `[]` exchange their combined-layer positions. The `0` key is in the former comma position on the bottom row.
 - `Fun`: media and F-keys.
 - `Sys`: Bluetooth, Studio unlock, bootloader and reset keys.
 
@@ -124,7 +122,7 @@ On macOS this copies a selected screenshot region to the clipboard rather than s
 - Select a layer tab to show one layer.
 - Click the selected tab again to show all layers.
 - Print CSS supports landscape and portrait output.
-- The current visual layer list is Base, Num, Sym, Nav + Win, Fun, and Sys.
+- The current visual layer list is Base, Num/Sym, Nav + Win, Fun, and Sys.
 - The HTML includes the current thumb layout, Enter combo, Sys access, click locations, and screenshot behavior.
 - The Base `T+Y` combo types `()` and moves the cursor between the parentheses; its marker and explanation must remain synchronized with the keymap.
 
@@ -133,7 +131,7 @@ On macOS this copies a selected screenshot region to the clipboard rather than s
 On Base, the Sys combo is:
 
 ```text
-Hold left outer Num + hold right outer Sym/Backspace
+Hold both Base Num/Sym thumbs
 ```
 
 Sys includes:
