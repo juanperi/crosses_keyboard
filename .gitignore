@@ -12,3 +12,6 @@ build-local/
 .crosses-v1.3-reference/
 .crosses-42-template/
 .gggw-zmk-keebs-reference/
+
+# Local UHK migration export.
+/docs/uhk.json

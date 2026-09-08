@@ -108,6 +108,9 @@
       .key.dual.mod { background: #e4ead0; border-color: #718237; }
       .thumb .key { min-height: 25px; }
       .layer .notice { display: none; }
+      .combo-enter { position: static; transform: none; display: inline-flex; margin: 0 2px; color: #173c8c; vertical-align: middle; }
+      .combo-enter span { min-width: 0; padding: 1px 3px; border: 1px solid #173c8c; border-radius: 2px; background: #eef2ff; box-shadow: none; font-size: 6px; letter-spacing: 0; }
+      .combo-enter.escape, .combo-enter.parentheses, .combo-enter.tab, .combo-enter.enter, .combo-enter.enter-jk { top: auto; left: auto; }
     }
     @media print and (orientation: portrait) {
       @page { size: portrait; margin: 10mm; }

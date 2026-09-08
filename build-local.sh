@@ -91,13 +91,18 @@ docker run --rm \
             local artifact="$2"
             shift 2
             local build_dir="build-${artifact}"
+            local overlay_args=()
+
+            if [[ "${shield}" == "crosses_left" ]]; then
+                overlay_args=("-DEXTRA_DTC_OVERLAY_FILE=/work/config-repo/config/scroll-invert.overlay")
+            fi
 
             rm -rf "${build_dir}"
             west build -s zmk/app -d "${build_dir}" -b "${BOARD}" -- \
                 -DZMK_CONFIG=/work/config-repo/config \
                 -DZMK_EXTRA_MODULES=/work/config-repo/crosses-detent \
                 -DSHIELD="${shield}" \
-                -DEXTRA_DTC_OVERLAY_FILE=/work/config-repo/config/scroll-invert.overlay \
+                "${overlay_args[@]}" \
                 "$@"
             cp "${build_dir}/zephyr/zmk.uf2" "/work/output/${artifact}.uf2"
         }

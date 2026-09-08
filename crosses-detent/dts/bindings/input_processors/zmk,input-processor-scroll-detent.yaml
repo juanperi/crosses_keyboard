@@ -1,4 +1,4 @@
-description: Input Processor for fixed-step vertical wheel scrolling
+description: Input Processor for fixed-step wheel scrolling
 compatible: "zmk,input-processor-scroll-detent"
 include: ip_common.yaml
 

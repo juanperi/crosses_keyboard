@@ -1,5 +1,5 @@
 /*
- * Temporary fixed-step scroll processor for the left Crosses trackball.
+ * Fixed-step scroll processor for the left Crosses trackball.
  * SPDX-License-Identifier: MIT
  */
 

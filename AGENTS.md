@@ -103,7 +103,7 @@ The left trackball scroll overlay is in `config/scroll-invert.overlay`:
 - Configures the left PMW3610 trackball at `200 CPI`.
 - Inverts vertical wheel direction with a scaler of `-1/1`.
 - Converts accumulated vertical and horizontal movement into discrete scroll ticks.
-- Requires `2880` accumulated wheel units per tick.
+- Requires `5760` accumulated wheel units per tick.
 - Applies BLE report-rate limiting.
 
 The right trackball is supplied by the official Crosses module and is not locally redefined.
