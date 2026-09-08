@@ -41,7 +41,7 @@ SYS  = 4
 Base thumb layout, from left to right:
 
 ```text
-Hold Num/Sym   Hold Nav + Win       Cmd       Enter       Space       Tap Backspace / Hold Fun
+Cmd           Hold Nav + Win       Hold Num/Sym       Enter       Space       Tap Backspace / Hold Fun
 ```
 
 Base outer columns:
