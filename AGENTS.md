@@ -58,15 +58,17 @@ Left:  A/Ctrl, S/Option, D/Shift, F/Command
 Right: J/Command, K/Shift, L/Option, semicolon/Ctrl
 ```
 
-Home-row mods use the positional/timing-safe pattern from ZMK documentation:
+Home-row mods use a uniform tap-preferred positional timing experiment:
 
 - Separate `hml` and `hmr` behaviors.
-- `flavor = "balanced"`.
-- `tapping-term-ms = <280>`.
+- `flavor = "tap-preferred"`.
+- `tapping-term-ms = <300>`.
 - `quick-tap-ms = <175>`.
-- `require-prior-idle-ms = <150>`.
+- `require-prior-idle-ms = <200>`.
 - `hold-trigger-on-release`.
 - Left mods trigger holds from right-side positions; right mods trigger holds from left-side positions.
+
+This is intended to reduce false modifier activations while writing. Modifier chords and shifted punctuation may require holding the home-row key longer than before; no per-key punctuation exceptions are used.
 
 Current layers:
 
