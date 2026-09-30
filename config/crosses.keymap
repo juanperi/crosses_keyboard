@@ -191,7 +191,7 @@
             bindings = <
                 &trans &trans &win_tabs_right &win_mission_control &win_tabs_left &mkp RCLK       &kp HOME  &kp PG_DN &kp PG_UP &kp END  &trans     &trans
                 &trans &trans &win_space_left &trans &win_space_right &mkp LCLK       &kp LEFT  &kp DOWN &kp UP   &kp RIGHT &trans   &trans
-                &screenshot &trans &win_slack_previous &trans &win_slack_next &trans &enye &kp TAB &kp DEL   &kp INS    &kp QUESTION &trans
+                &screenshot &trans &win_slack_previous &trans &win_slack_next &trans &enye &kp TAB &kp DEL   &kp INS    &trans &trans
                                        &trans &trans &trans &trans &trans &mo FUN
             >;
         };
