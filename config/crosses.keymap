@@ -23,13 +23,6 @@
             layers = <BASE>;
             bindings = <&mo SYS>;
         };
-        escape_combo {
-            timeout-ms = <35>;
-            require-prior-idle-ms = <100>;
-            key-positions = <3 4>;
-            layers = <BASE>;
-            bindings = <&kp ESC>;
-        };
         enter_combo {
             timeout-ms = <35>;
             require-prior-idle-ms = <100>;
@@ -45,13 +38,6 @@
             layers = <BASE>;
             slow-release;
             bindings = <&combo_mods &cmd_shift RET>;
-        };
-        tab_combo {
-            timeout-ms = <35>;
-            require-prior-idle-ms = <100>;
-            key-positions = <14 15>;
-            layers = <BASE>;
-            bindings = <&kp TAB>;
         };
         parentheses_combo {
             timeout-ms = <35>;
