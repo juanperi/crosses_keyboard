@@ -41,7 +41,7 @@ SYS  = 4
 Base thumb layout, from left to right:
 
 ```text
-Cmd           Hold Nav + Win       Hold Num/Sym       Enter       Space       Tap Backspace / Hold Fun
+Cmd | Hold Nav + Win | Hold Num/Sym | Right Shift | Space | Enter
 ```
 
 Base outer columns:
@@ -75,13 +75,13 @@ Current layers:
 - `Nav + Win`: arrows, `Y=Home`, `U=Page Down`, `I=Page Up`, `O=End`, editing, UHK window actions, left/right click, and screenshot. Screenshot is on the left half's bottom-left key. Duplicate page-navigation bindings were removed from the lower row.
 - On Nav + Win, `M=Tab` and comma is `Delete`.
 - `Num/Sym`: unchanged right-hand number positions with arithmetic and frequently used symbols. `*` and `-` are swapped from the original Num layer; `()` and `[]` exchange their combined-layer positions. The `0` key is in the former comma position on the bottom row.
-- `Fun`: media and F-keys.
+- `Fun`: media and F-keys; hold the Nav + Num/Sym thumbs together to access it.
 - `Sys`: Bluetooth, Studio unlock, bootloader and reset keys.
 
 `Nav + Win` known actions:
 
 ```text
-W: previous tab             E: Mission Control       R: next tab
+W: next tab                  E: Mission Control       R: previous tab
 S: previous Space                                   F: next Space
 X: previous Slack thread    V: next Slack thread
 T: right click              G: left click
@@ -134,7 +134,7 @@ On macOS this copies a selected screenshot region to the clipboard rather than s
 On Base, the Sys combo is:
 
 ```text
-Hold Base Num/Sym + Fun thumbs
+Hold Base Num/Sym + Enter thumbs
 ```
 
 Sys includes:

@@ -23,6 +23,12 @@
             layers = <BASE>;
             bindings = <&mo SYS>;
         };
+        fun_combo {
+            timeout-ms = <80>;
+            key-positions = <37 38>;
+            layers = <BASE>;
+            bindings = <&mo FUN>;
+        };
         enter_combo {
             timeout-ms = <35>;
             require-prior-idle-ms = <100>;
@@ -168,7 +174,7 @@
                 &kp ESC   &kp Q        &kp W        &kp E        &kp R        &kp T        &kp Y        &kp U        &kp I        &kp O        &kp P        &kp BSPC
                 &kp TAB             &hml LCTRL A  &hml LALT S    &hml LSHFT D  &hml LGUI F  &kp G        &kp H        &hmr RGUI J    &hmr RSHFT K   &hmr RALT L   &hmr RCTRL SEMI &kp SQT
                 &trans    &kp Z        &kp X        &kp C        &kp V        &kp B        &kp N        &kp M        &kp COMMA   &kp DOT      &kp FSLH    &trans
-                                       &kp LGUI       &mo NAV        &mo NUMSYM     &kp RSHFT     &kp SPACE      &lt FUN BSPC
+                                       &kp LGUI       &mo NAV        &mo NUMSYM     &kp RSHFT     &kp SPACE      &kp RET
             >;
         };
 

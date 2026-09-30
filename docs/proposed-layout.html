@@ -65,11 +65,18 @@
     .combo-enter i { display: none; }
     .left, .right { border-color: #536680; }
     .thumbs { display: grid; grid-template-columns: repeat(12, minmax(48px, 1fr)); gap: var(--gap); min-width: 790px; padding: 4px 0 0; }
+    .thumbs.has-combos { position: relative; padding-top: 32px; }
     .thumb { grid-column: span 2; }
     .thumb:nth-child(4) { grid-column: 7 / span 2; }
     .thumb:nth-child(5) { grid-column: 9 / span 2; }
     .thumb:nth-child(6) { grid-column: 11 / span 2; }
     .thumb .key { min-height: 52px; background: #26382f; border-color: #477b68; }
+    .thumb.combo-input .key { background: linear-gradient(145deg, #344d5b, #263744); border-color: var(--accent-2); box-shadow: 0 3px 0 #0b0e14, 0 0 14px #9fb8ff55; }
+    .thumb-combo-overlay { position: absolute; top: 0; left: 0; right: 0; z-index: 3; display: grid; grid-template-columns: repeat(12, minmax(48px, 1fr)); gap: var(--gap); pointer-events: none; }
+    .thumb-combo { display: flex; justify-content: center; }
+    .thumb-combo.fun { grid-column: 3 / span 4; }
+    .thumb-combo.sys { grid-column: 5 / span 8; }
+    .thumb-combo span { min-width: 50px; padding: 4px 8px; border: 1px solid var(--accent-2); border-radius: 6px; background: linear-gradient(145deg, #3c5d78, #263c53); box-shadow: 0 3px 0 #0b0e14, 0 0 14px #9fb8ff55; color: var(--accent-2); font-size: 12px; font-weight: 700; line-height: 1.1; letter-spacing: .04em; text-align: center; }
     .legend { display: flex; flex-wrap: wrap; gap: 12px 22px; margin-top: 13px; color: var(--muted); font-size: 13px; }
     .swatch { display: inline-block; width: 10px; height: 10px; border-radius: 3px; background: #293346; border: 1px solid #536680; margin-right: 5px; }
     .swatch.mod { background: #39402c; border-color: #8f9b56; }
@@ -107,6 +114,9 @@
       .key.dual strong b, .key.dual small b { font-size: 8px; }
       .key.dual.mod { background: #e4ead0; border-color: #718237; }
       .thumb .key { min-height: 25px; }
+      .thumbs.has-combos { padding-top: 15px; }
+      .thumb-combo-overlay { grid-template-columns: repeat(12, minmax(48px, 1fr)); gap: 1px; }
+      .thumb-combo span { min-width: 0; padding: 1px 3px; border-radius: 2px; box-shadow: none; font-size: 6px; letter-spacing: 0; }
       .layer .notice { display: none; }
       .combo-enter { position: static; transform: none; display: inline-flex; margin: 0 2px; color: #173c8c; vertical-align: middle; }
       .combo-enter span { min-width: 0; padding: 1px 3px; border: 1px solid #173c8c; border-radius: 2px; background: #eef2ff; box-shadow: none; font-size: 6px; letter-spacing: 0; }
@@ -131,6 +141,8 @@
       .key.dual strong, .key.dual small { font-size: 5px; }
       .key.dual strong b, .key.dual small b { font-size: 7px; }
       .thumb .key { min-height: 23px; }
+      .thumbs.has-combos { padding-top: 13px; }
+      .thumb-combo span { padding: 1px 2px; font-size: 5px; }
       #numsym { page-break-before: auto; }
       #fun { page-break-before: auto; }
     }
@@ -162,7 +174,7 @@
     <div class="note"><b>Base access</b><p>Home-row mods: A/Ctrl, S/Option, D/Shift, F/Command; mirrored on J/Command, K/Shift, L/Option, and semicolon/Ctrl. They use balanced positional timing with opposite-hand hold triggers, a <code>300 ms</code> tapping term, and a <code>125 ms</code> prior-idle guard. Cross-hand modifier chords resolve when the other key is released while the home-row key remains held; recent typing within the idle guard resolves the home-row key as a tap.</p></div>
     <div class="note"><b>Layer philosophy</b><p>Nav + Win is one left-thumb layer for arrows, document movement, and UHK window controls. Num/Sym combines the unchanged number layout with the most-used symbols. Bluetooth and recovery controls live on Sys. Base <code>J+K</code> is a trial Enter combo.</p></div>
     <div class="note"><b>UHK migration</b><p>Nav + Win preserves the UHK actions on QWERTY positions: W/R tabs, E Mission Control, S/F spaces (<code>Ctrl+Option+Left/Right</code>), and X/V Slack conversations. Screenshot uses <code>Cmd+Ctrl+Shift+4</code> to copy a selected region to the clipboard.</p></div>
-    <div class="note"><b>Safety</b><p>Hold the two Base Num/Sym thumbs together to access Sys. Bootloader is available on both sides in the second row: left outer key for the left half, right outer key for the right half.</p></div>
+    <div class="note"><b>Safety</b><p>Hold the Base Num/Sym and Enter thumbs together to access Sys. Bootloader is available on both sides in the second row: left outer key for the left half, right outer key for the right half.</p></div>
   </div>
 </main>
 <script>
@@ -174,8 +186,8 @@
         ['Esc','',1],['Q','',1],['W','',1],['E','',1],['R','',1],['T','',1],['Y','',0],['U','',0],['I','',0],['O','',0],['P','',0],['Bspc','',0],
         ['Tab','',1],['A','Ctrl',1],['S','Opt',1],['D','Shift',1],['F','Cmd',1],['G','',1],['H','',0],['J','Cmd',0],['K','Shift',0],['L','Opt',0],[';','Ctrl',0,':'],["'",'',0,'"'],
         ['','',1],['Z','',1],['X','',1],['C','',1],['V','',1],['B','',1],['N','',0],['M','',0],[',','',0,'<'],['.','',0,'>'],['/','',0,'?'],['','',0]
-        ], thumbs: [['Cmd',''],['Nav + Win','hold'],['Num/Sym','hold'],['Shift',''],['Space',''],['Backspace','Fun']], comboPositions: [5, 6, 15, 16, 19, 20], combos: [['parentheses', '()'], ['enter', 'Enter'], ['enter-jk', 'Enter']],
-        extra: 'Base combos: tap T+Y for <code>()</code> with the cursor between them, or F+D and J+K for <code>Enter</code>. Hold either Enter combo for <code>Command + Shift</code>. The innermost right-thumb key is right Shift. Tapping or holding an individual home-row key keeps its normal letter/modifier behavior.'
+        ], thumbs: [['Cmd',''],['Nav + Win','hold',true],['Num/Sym','hold',true],['Shift',''],['Space',''],['Enter','',true]], thumbCombos: [['fun','Fun','Nav + Num/Sym thumbs activate Fun'],['sys','Sys','Num/Sym + Enter thumbs activate Sys']], comboPositions: [5, 6, 15, 16, 19, 20], combos: [['parentheses', '()'], ['enter', 'Enter'], ['enter-jk', 'Enter']],
+        extra: 'Base combos: tap T+Y for <code>()</code> with the cursor between them, or F+D and J+K for <code>Enter</code>. Hold either Enter combo for <code>Command + Shift</code>. Hold the Nav + Num/Sym thumbs together for Fun. The innermost right-thumb key is right Shift. Tapping or holding an individual home-row key keeps its normal letter/modifier behavior.'
     },
     nav: {
       title: 'Nav + Win', subtitle: 'Left-thumb layer: arrows, window controls, and trackball clicks',
@@ -183,12 +195,12 @@
      numsym: {
        title: 'Num/Sym', subtitle: 'Numbers, arithmetic, and frequently used symbols',
         keys: [['','',1],['!','',1],['@','',1],['#','',1],['$','',1],['%','',1],['+','',0],['7','',0,'&'],['8','',0,'*'],['9','',0,'('],['*','',0],['[','',0,'{'],['','',1],['^','',1],['&','',1],['(','',1],[')','',1],['`','',1,'~'],['-','',0,'_'],['4','',0,'$'],['5','',0,'%'],['6','',0,'^'],['/','',0,'?'],[']','',0,'}'],['','',1],[':','',1],['\\','',1,'|'],['<','',1],['>','',1],['_','',1],['0','',0,')'],['1','',0,'!'],['2','',0,'@'],['3','',0,'#'],['.','',0,'>'],['=','',0,'+']], thumbs: [['',''],['',''],['',''],['',''],['',''],['','']] },
-    fun: {
-      title: 'Fun', subtitle: 'Function keys, media, and macOS controls',
+      fun: {
+        title: 'Fun', subtitle: 'Hold Nav + Num/Sym thumbs for function keys and media',
         keys: [['Mute','proposal',1],['Vol -','proposal',1],['Vol +','proposal',1],['Prev','proposal',1],['Play','proposal',1],['Next','proposal',1],['F7','proposal',0],['F8','proposal',0],['F9','proposal',0],['F10','proposal',0],['F11','proposal',0],['F12','proposal',0],['','',1],['','',1],['','',1],['','',1],['','',1],['','',1],['F4','proposal',0],['F5','proposal',0],['F6','proposal',0],['','',0],['','',0],['','',0],['F1','proposal',0],['F2','proposal',0],['F3','proposal',0],['','',0],['','',0],['','',0]], thumbs: [['',''],['',''],['',''],['',''],['',''],['','']] },
-    sys: {
-      title: 'Sys', subtitle: 'Hold Base Num/Sym + Fun thumbs together',
-        keys: [['BT 0','proposal',1],['BT 1','proposal',1],['BT 2','proposal',1],['BT 3','proposal',1],['BT 4','proposal',1],['BT clear','proposal',1],['','',0],['','',0],['','',0],['','',0],['','',0],['Studio unlock','proposal',0],['Bootloader','proposal',1],['Reset','proposal',1],['','',1],['','',1],['','',1],['','',1],['','',0],['','',0],['','',0],['','',0],['','',0],['Bootloader','proposal',0],['','',1],['','',1],['','',1],['','',1],['','',1],['','',1],['','',0],['','',0],['','',0],['','',0],['','',0],['','',0]], thumbs: [['',''],['',''],['',''],['',''],['',''],['','']], extra: 'Access from Base: hold the left Num/Sym thumb and right Fun/Backspace thumb together. The innermost right thumb is right Shift. Then press the second-row outer key on the side you want to flash: left outer for the left half, right outer for the right half. Studio unlock is on the Sys top-right key.' }
+      sys: {
+        title: 'Sys', subtitle: 'Hold Base Num/Sym + Enter thumbs together',
+        keys: [['BT 0','proposal',1],['BT 1','proposal',1],['BT 2','proposal',1],['BT 3','proposal',1],['BT 4','proposal',1],['BT clear','proposal',1],['','',0],['','',0],['','',0],['','',0],['','',0],['Studio unlock','proposal',0],['Bootloader','proposal',1],['Reset','proposal',1],['','',1],['','',1],['','',1],['','',1],['','',0],['','',0],['','',0],['','',0],['','',0],['Bootloader','proposal',0],['','',1],['','',1],['','',1],['','',1],['','',1],['','',1],['','',0],['','',0],['','',0],['','',0],['','',0],['','',0]], thumbs: [['',''],['',''],['',''],['',''],['',''],['','']], extra: 'Access from Base: hold the left Num/Sym thumb and right Enter thumb together. The innermost right-thumb key is right Shift. Then press the second-row outer key on the side you want to flash: left outer for the left half, right outer for the right half. Studio unlock is on the Sys top-right key.' }
   };
   function render(id) {
     const data = rows[id];
@@ -206,7 +218,7 @@
         const ariaLabel = shifted ? `aria-label="${escapeHTML(dual ? `Tap ${label}; hold ${sub}; with Shift: ${shifted}` : `${label}; with Shift: ${shifted}`)}"` : '';
         return `<div class="key ${left ? 'left' : 'right'} ${sub === 'proposal' ? 'proposal' : ''} ${dual ? 'dual mod' : ''} ${shifted ? 'has-shifted' : ''} ${comboKey}" ${ariaLabel}>${shiftedBadge}${content}</div>`;
     };
-    const thumb = ([label, hold]) => {
+    const thumb = ([label, hold, comboInput]) => {
       const holdOnly = hold === 'hold';
       const dual = label && hold;
       const content = holdOnly
@@ -214,10 +226,12 @@
         : dual
         ? `<strong>Tap: <b>${label}</b></strong><small>Hold: <b>${hold}</b></small>`
         : `<strong>${label || '&nbsp;'}</strong><small>${hold || '&nbsp;'}</small>`;
-      return `<div class="thumb"><div class="key ${holdOnly || dual ? 'dual' : ''}">${content}</div></div>`;
+      return `<div class="thumb ${comboInput ? 'combo-input' : ''}"><div class="key ${holdOnly || dual ? 'dual' : ''}">${content}</div></div>`;
     };
      const comboMarkers = (data.combos || []).map(([kind, label]) => `<div class="combo-enter ${kind}" aria-label="${label} combo"><span>${label}</span></div>`).join('');
-      section.innerHTML = `<div class="panel"><div class="layer-head"><h2>${data.title}</h2><span>${data.subtitle}</span></div><div class="keyboard"><div class="row">${data.keys.slice(0,12).map((item, index) => key(item, index)).join('')}</div><div class="row">${data.keys.slice(12,24).map((item, index) => key(item, index + 12)).join('')}</div><div class="row">${data.keys.slice(24,36).map((item, index) => key(item, index + 24)).join('')}</div><div class="thumbs">${data.thumbs.map(thumb).join('')}</div>${comboMarkers}</div><div class="legend"><span><i class="swatch"></i>key position</span><span><i class="swatch mod"></i>thumb/layer access</span><span><i class="swatch home-mod"></i>home-row modifier</span><span><i class="swatch proposal"></i>proposed or unresolved</span><span class="shift-legend">small upper-right label = alternate output</span></div>${data.extra ? `<div class="notice">${data.extra}</div>` : ''}</div>`;
+      const thumbComboMarkers = (data.thumbCombos || []).map(([kind, label, description]) => `<div class="thumb-combo ${kind}" aria-label="${description}"><span>${label}</span></div>`).join('');
+      const thumbComboOverlay = data.thumbCombos ? `<div class="thumb-combo-overlay">${thumbComboMarkers}</div>` : '';
+      section.innerHTML = `<div class="panel"><div class="layer-head"><h2>${data.title}</h2><span>${data.subtitle}</span></div><div class="keyboard"><div class="row">${data.keys.slice(0,12).map((item, index) => key(item, index)).join('')}</div><div class="row">${data.keys.slice(12,24).map((item, index) => key(item, index + 12)).join('')}</div><div class="row">${data.keys.slice(24,36).map((item, index) => key(item, index + 24)).join('')}</div><div class="thumbs ${data.thumbCombos ? 'has-combos' : ''}">${data.thumbs.map(thumb).join('')}${thumbComboOverlay}</div>${comboMarkers}</div><div class="legend"><span><i class="swatch"></i>key position</span><span><i class="swatch mod"></i>thumb/layer access</span><span><i class="swatch home-mod"></i>home-row modifier</span><span><i class="swatch proposal"></i>proposed or unresolved</span><span class="shift-legend">small upper-right label = alternate output</span></div>${data.extra ? `<div class="notice">${data.extra}</div>` : ''}</div>`;
   }
   Object.keys(rows).filter(id => document.getElementById(id)).forEach(render);
   document.querySelectorAll('button').forEach(button => button.addEventListener('click', () => {
