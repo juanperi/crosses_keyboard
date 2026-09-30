@@ -122,6 +122,33 @@
             #binding-cells = <0>;
             bindings = <&macro_tap &kp LPAR>, <&macro_tap &kp RPAR>, <&macro_tap &kp LEFT>;
         };
+        enye_lower: enye_lower {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LALT>, <&macro_tap &kp N>, <&macro_release &kp LALT>, <&macro_tap &kp N>;
+        };
+        enye_upper_lshift: enye_upper_lshift {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LALT>, <&macro_tap &kp N>, <&macro_release &kp LALT>, <&macro_press &kp RSHFT>, <&macro_tap &kp N>, <&macro_release &kp RSHFT>;
+        };
+        enye_upper_rshift: enye_upper_rshift {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LALT>, <&macro_tap &kp N>, <&macro_release &kp LALT>, <&macro_press &kp LSHFT>, <&macro_tap &kp N>, <&macro_release &kp LSHFT>;
+        };
+        enye_rshift: enye_rshift {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&enye_lower>, <&enye_upper_rshift>;
+            mods = <MOD_RSFT>;
+        };
+        enye: enye {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&enye_rshift>, <&enye_upper_lshift>;
+            mods = <MOD_LSFT>;
+        };
         hml: homerow_mods_left {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -164,7 +191,7 @@
             bindings = <
                 &trans &trans &win_tabs_left &win_mission_control &win_tabs_right &mkp RCLK       &kp HOME  &kp PG_DN &kp PG_UP &kp END  &trans     &trans
                 &trans &trans &win_space_left &trans &win_space_right &mkp LCLK       &kp LEFT  &kp DOWN &kp UP   &kp RIGHT &trans   &trans
-                &screenshot &trans &win_slack_previous &trans &win_slack_next &trans &kp INS &kp TAB &kp DEL   &trans     &trans    &trans
+                &screenshot &trans &win_slack_previous &trans &win_slack_next &trans &enye &kp TAB &kp DEL   &kp INS    &kp QUESTION &trans
                                        &trans &trans &trans &trans &trans &mo FUN
             >;
         };
