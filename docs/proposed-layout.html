@@ -73,13 +73,16 @@
     .thumb .key { min-height: 52px; background: #26382f; border-color: #477b68; }
     .thumb.combo-input .key { background: linear-gradient(145deg, #344d5b, #263744); border-color: var(--accent-2); box-shadow: 0 3px 0 #0b0e14, 0 0 14px #9fb8ff55; }
     .thumb-combo-overlay { position: absolute; top: 0; left: 0; right: 0; z-index: 3; display: grid; grid-template-columns: repeat(12, minmax(48px, 1fr)); gap: var(--gap); pointer-events: none; }
-    .thumb-combo { display: flex; justify-content: center; }
-    .thumb-combo.fun { grid-column: 3 / span 4; }
-    .thumb-combo.sys { grid-column: 5 / span 8; }
+    .thumb-combo { position: relative; display: flex; justify-content: center; align-self: start; }
+    .thumb-combo::after { content: ''; position: absolute; top: 100%; left: 25%; right: 25%; height: 8px; box-sizing: border-box; border-top: 1px solid var(--accent-2); border-left: 1px solid var(--accent-2); border-right: 1px solid var(--accent-2); opacity: .8; }
+    .thumb-combo.fun { grid-column: 3 / span 4; grid-row: 1; }
+    .thumb-combo.sys { grid-column: 5 / span 8; grid-row: 1; }
+    .thumb-combo.sys::after { left: 12.5%; right: 12.5%; }
     .thumb-combo span { min-width: 50px; padding: 4px 8px; border: 1px solid var(--accent-2); border-radius: 6px; background: linear-gradient(145deg, #3c5d78, #263c53); box-shadow: 0 3px 0 #0b0e14, 0 0 14px #9fb8ff55; color: var(--accent-2); font-size: 12px; font-weight: 700; line-height: 1.1; letter-spacing: .04em; text-align: center; }
     .legend { display: flex; flex-wrap: wrap; gap: 12px 22px; margin-top: 13px; color: var(--muted); font-size: 13px; }
     .swatch { display: inline-block; width: 10px; height: 10px; border-radius: 3px; background: #293346; border: 1px solid #536680; margin-right: 5px; }
     .swatch.mod { background: #39402c; border-color: #8f9b56; }
+    .swatch.combo-input { background: #344d5b; border-color: var(--accent-2); }
     .swatch.home-mod { background: #3b432d; border-color: #84934d; }
     .swatch.proposal { background: #493a27; border-color: var(--warning); }
     .notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin-top: 18px; }
@@ -116,6 +119,7 @@
       .thumb .key { min-height: 25px; }
       .thumbs.has-combos { padding-top: 15px; }
       .thumb-combo-overlay { grid-template-columns: repeat(12, minmax(48px, 1fr)); gap: 1px; }
+      .thumb-combo::after { height: 3px; }
       .thumb-combo span { min-width: 0; padding: 1px 3px; border-radius: 2px; box-shadow: none; font-size: 6px; letter-spacing: 0; }
       .layer .notice { display: none; }
       .combo-enter { position: static; transform: none; display: inline-flex; margin: 0 2px; color: #173c8c; vertical-align: middle; }
@@ -142,6 +146,7 @@
       .key.dual strong b, .key.dual small b { font-size: 7px; }
       .thumb .key { min-height: 23px; }
       .thumbs.has-combos { padding-top: 13px; }
+      .thumb-combo::after { height: 2px; }
       .thumb-combo span { padding: 1px 2px; font-size: 5px; }
       #numsym { page-break-before: auto; }
       #fun { page-break-before: auto; }
@@ -231,7 +236,7 @@
      const comboMarkers = (data.combos || []).map(([kind, label]) => `<div class="combo-enter ${kind}" aria-label="${label} combo"><span>${label}</span></div>`).join('');
       const thumbComboMarkers = (data.thumbCombos || []).map(([kind, label, description]) => `<div class="thumb-combo ${kind}" aria-label="${description}"><span>${label}</span></div>`).join('');
       const thumbComboOverlay = data.thumbCombos ? `<div class="thumb-combo-overlay">${thumbComboMarkers}</div>` : '';
-      section.innerHTML = `<div class="panel"><div class="layer-head"><h2>${data.title}</h2><span>${data.subtitle}</span></div><div class="keyboard"><div class="row">${data.keys.slice(0,12).map((item, index) => key(item, index)).join('')}</div><div class="row">${data.keys.slice(12,24).map((item, index) => key(item, index + 12)).join('')}</div><div class="row">${data.keys.slice(24,36).map((item, index) => key(item, index + 24)).join('')}</div><div class="thumbs ${data.thumbCombos ? 'has-combos' : ''}">${data.thumbs.map(thumb).join('')}${thumbComboOverlay}</div>${comboMarkers}</div><div class="legend"><span><i class="swatch"></i>key position</span><span><i class="swatch mod"></i>thumb/layer access</span><span><i class="swatch home-mod"></i>home-row modifier</span><span><i class="swatch proposal"></i>proposed or unresolved</span><span class="shift-legend">small upper-right label = alternate output</span></div>${data.extra ? `<div class="notice">${data.extra}</div>` : ''}</div>`;
+      section.innerHTML = `<div class="panel"><div class="layer-head"><h2>${data.title}</h2><span>${data.subtitle}</span></div><div class="keyboard"><div class="row">${data.keys.slice(0,12).map((item, index) => key(item, index)).join('')}</div><div class="row">${data.keys.slice(12,24).map((item, index) => key(item, index + 12)).join('')}</div><div class="row">${data.keys.slice(24,36).map((item, index) => key(item, index + 24)).join('')}</div><div class="thumbs ${data.thumbCombos ? 'has-combos' : ''}">${data.thumbs.map(thumb).join('')}${thumbComboOverlay}</div>${comboMarkers}</div><div class="legend"><span><i class="swatch"></i>key position</span><span><i class="swatch mod"></i>thumb/layer access</span><span><i class="swatch combo-input"></i>thumb combo input</span><span><i class="swatch home-mod"></i>home-row modifier</span><span><i class="swatch proposal"></i>proposed or unresolved</span><span class="shift-legend">small upper-right label = alternate output</span></div>${data.extra ? `<div class="notice">${data.extra}</div>` : ''}</div>`;
   }
   Object.keys(rows).filter(id => document.getElementById(id)).forEach(render);
   document.querySelectorAll('button').forEach(button => button.addEventListener('click', () => {
