@@ -64,11 +64,11 @@ Home-row mods use a uniform tap-preferred positional timing experiment:
 - `flavor = "tap-preferred"`.
 - `tapping-term-ms = <300>`.
 - `quick-tap-ms = <175>`.
-- `require-prior-idle-ms = <200>`.
+- `require-prior-idle-ms = <125>`.
 - `hold-trigger-on-release`.
 - Left mods trigger holds from right-side positions; right mods trigger holds from left-side positions.
 
-This is intended to reduce false modifier activations while writing. Modifier chords and shifted punctuation may require holding the home-row key longer than before; no per-key punctuation exceptions are used.
+This is intended to reduce false modifier activations while writing. Modifier chords may require holding the home-row key through its tapping term; the right-thumb Shift provides a direct alternative for shifted punctuation. No per-key punctuation exceptions are used.
 
 Current layers:
 
